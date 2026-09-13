@@ -1,9 +1,7 @@
 ---
-import '@fontsource/ibm-plex-sans/latin-400.css';
-import '@fontsource/ibm-plex-sans/latin-400-italic.css';
-import '@fontsource/ibm-plex-sans/latin-500.css';
-import '@fontsource/ibm-plex-sans/latin-600.css';
-import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/instrument-sans/latin-400.css';
+import '@fontsource/instrument-sans/latin-400-italic.css';
+import '@fontsource/instrument-sans/latin-500.css';
 import '../styles/global.css';
 import { profiel, secties } from '../data/profiel';
 
@@ -19,7 +17,7 @@ const { titel, beschrijving, canonical, taal = 'nl', jsonld } = Astro.props;
 const paginaTitel = titel ? `${titel} · ${profiel.naam}` : profiel.naam;
 const huidig = Astro.url.pathname;
 const canoniek = canonical ?? new URL(huidig, Astro.site).href;
-const isHuidig = (p: string) => (huidig === '/' ? p === '/' : huidig.startsWith(p) && p !== '/');
+const isHuidig = (p: string) => huidig.startsWith(p);
 ---
 
 <!doctype html>
@@ -42,20 +40,25 @@ const isHuidig = (p: string) => (huidig === '/' ? p === '/' : huidig.startsWith(
         ))
     }
     {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+    <script is:inline>
+      // Onthoudt de keuze voor licht of nacht. Zonder keuze volgt de site het systeem.
+      try {
+        var t = localStorage.getItem('thema');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div class="pagina">
       <header class="kop">
-        <a class="naam" href="/">{profiel.naam}</a>
-        <nav aria-label="Secties">
-          {
-            Object.entries(secties).map(([s, { titel }]) => (
-              <a href={`/${s}/`} aria-current={isHuidig(`/${s}/`) ? 'page' : undefined}>
-                {titel}
-              </a>
-            ))
-          }
+        <a class="merk" href="/" aria-label={profiel.naam}>{profiel.merk}</a>
+        <nav aria-label="Menu">
+          <a href="/publicaties/" aria-current={isHuidig('/publicaties/') ? 'page' : undefined}>Publicaties</a>
           <a href="/over/" aria-current={isHuidig('/over/') ? 'page' : undefined}>Over</a>
+          <button class="knop" type="button" id="thema" aria-label="Wissel tussen licht en nacht">
+            <svg class="zon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"></path></svg>
+            <svg class="maan" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+          </button>
         </nav>
       </header>
       <main>
@@ -64,10 +67,17 @@ const isHuidig = (p: string) => (huidig === '/' ? p === '/' : huidig.startsWith(
       <footer class="voet">
         <p>{profiel.naam}. {profiel.functie}</p>
         <p>{profiel.disclaimer}</p>
-        <p>
-          <a href="/feed.xml">RSS</a> · Geen cookies, geen statistieken.
-        </p>
+        <p><a href="/feed.xml">RSS</a></p>
       </footer>
     </div>
+    <script is:inline>
+      document.getElementById('thema').addEventListener('click', function () {
+        var d = document.documentElement.dataset;
+        var nu = d.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var nieuw = nu === 'dark' ? 'light' : 'dark';
+        d.theme = nieuw;
+        try { localStorage.setItem('thema', nieuw); } catch (e) {}
+      });
+    </script>
   </body>
 </html>

@@ -17,6 +17,8 @@ const d = stuk.data;
 const { Content } = await render(stuk);
 const url = new URL(Astro.url.pathname, Astro.site).href;
 const genummerd = isGenummerd(stuk);
+const sectie = sectieVanType[d.type];
+const typeNaam = d.type.charAt(0).toUpperCase() + d.type.slice(1);
 const volledigeTekstLater = d.extern?.volledigeTekstVanaf && d.extern.volledigeTekstVanaf > new Date();
 
 const jsonld: Record<string, unknown> = {
@@ -37,17 +39,18 @@ if (d.extern?.url) jsonld.sameAs = d.extern.url;
 <Basis titel={d.titel} beschrijving={d.samenvatting} canonical={d.canonical} taal={d.taal} jsonld={jsonld}>
   <article class="stuk">
     <header>
-      <p class="meta mono">
-        <span class="type">{d.type}</span> · <time datetime={iso(d.datum)}>{iso(d.datum)}</time>
-        {d.concept && <span> · concept</span>}
+      <p class="meta">
+        <a href={`/${sectie}/`}>{typeNaam}</a>
+        <time datetime={iso(d.datum)}>{iso(d.datum)}</time>
+        {d.concept && <span>concept</span>}
       </p>
       <h1>{d.titel}</h1>
       {
         d.ecli && (
-          <p class="ecli mono">
+          <p class="ecli">
             <a href={`https://uitspraken.rechtspraak.nl/details?id=${encodeURIComponent(d.ecli)}`}>{d.ecli}</a>
-            {d.instantie && <span> · {d.instantie}</span>}
-            {d.uitspraakdatum && <span> · {iso(d.uitspraakdatum)}</span>}
+            {d.instantie && <span>{d.instantie}</span>}
+            {d.uitspraakdatum && <span>{iso(d.uitspraakdatum)}</span>}
           </p>
         )
       }
@@ -60,7 +63,7 @@ if (d.extern?.url) jsonld.sameAs = d.extern.url;
         )
       }
     </header>
-    <div class:list={['prose', { genummerd, breed: !genummerd }]}>
+    <div class:list={['prose', { genummerd }]}>
       <Content />
     </div>
     <footer class="verantwoording">
@@ -68,7 +71,7 @@ if (d.extern?.url) jsonld.sameAs = d.extern.url;
       {
         genummerd && (
           <p>
-            Citeren: {profiel.naam}, "{d.titel}", covanoostveen.nl, {iso(d.datum)}, alinea n. Elk alineanummer is een link.
+            Citeren: {profiel.naam}, “{d.titel}”, covanoostveen.nl, {iso(d.datum)}, alinea n. Elk alineanummer is een link.
           </p>
         )
       }

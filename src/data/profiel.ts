@@ -3,7 +3,8 @@
 
 export const profiel = {
   naam: 'Co van Oostveen',
-  functie: 'Fiscaal advocaat in Amsterdam. Bouwt AI-systemen voor de fiscale praktijk.',
+  merk: 'CvO',
+  functie: 'Fiscaal advocaat in Amsterdam. Ontwikkelt AI-toepassingen voor de fiscale praktijk.',
   functieKort: 'Fiscaal advocaat',
   site: 'https://covanoostveen.nl',
   // Vul in wat je publiek wilt maken. Lege velden worden niet getoond.
@@ -12,12 +13,6 @@ export const profiel = {
     github: 'https://github.com/VanOostveen',
     email: '',
   },
-  // De drie bewijsstukken onder de openingszin op de homepage.
-  bewijs: [
-    { label: 'WFR 2026/77', url: '/publicaties/' },
-    { label: 'Fynd', url: '/werk/' },
-    { label: 'The Floris', url: 'https://www.thefloris.nl' },
-  ],
   // Opleiding en beroepsopleiding voor de publicatiepagina. Formaat:
   // { periode: '2024–heden', wat: 'Beroepsopleiding Advocaten' }
   // Leeg laten tot ingevuld; een lege lijst wordt niet getoond.

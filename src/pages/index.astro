@@ -27,10 +27,5 @@ const jsonld = [
 
 <Basis beschrijving={`${profiel.naam}. ${profiel.functie}`} jsonld={jsonld}>
   <p class="intro">{profiel.functie}</p>
-  <ul class="bewijs">
-    {profiel.bewijs.map((b) => (
-      <li><a href={b.url}>{b.label}</a></li>
-    ))}
-  </ul>
   <Lijst stukken={stukken} />
 </Basis>

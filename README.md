@@ -1,6 +1,6 @@
 # covanoostveen.nl
 
-Persoonlijke site: noten over rechtspraak, essays, bouwlogboek en publicatielijst. Statisch, uit markdown, zonder JavaScript, cookies of statistieken.
+Persoonlijke site: noten over rechtspraak, essays, bouwlogboek en publicatielijst. Statisch, uit markdown, zonder cookies of statistieken; het enige script is de licht/nacht-knop.
 
 ## Lokaal
 

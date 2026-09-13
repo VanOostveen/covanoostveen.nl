@@ -24,7 +24,7 @@ const stukken = await getStukken(info.type);
         <ul class="cv">
           {profiel.cv.map((c) => (
             <li>
-              <span class="mono">{c.periode}</span>
+              <span class="periode">{c.periode}</span>
               <span>{c.wat}</span>
             </li>
           ))}
@@ -34,7 +34,7 @@ const stukken = await getStukken(info.type);
   }
   {
     sectie !== 'publicaties' && (
-      <p class="voet-feed mono" style="margin-top:1.5rem">
+      <p class="stil" style="margin-top: 72px; font-size: 15px;">
         <a href={`/${sectie}/feed.xml`}>RSS voor {info.titel.toLowerCase()}</a>
       </p>
     )
