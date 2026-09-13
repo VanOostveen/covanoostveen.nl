@@ -9,14 +9,16 @@ export const profiel = {
   site: 'https://covanoostveen.nl',
   // Vul in wat je publiek wilt maken. Lege velden worden niet getoond.
   links: {
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/co-van-oostveen/',
     github: 'https://github.com/VanOostveen',
-    email: '',
+    email: 'co.vanoostveen@svalneratlas.com',
   },
-  // Opleiding en beroepsopleiding voor de publicatiepagina. Formaat:
-  // { periode: '2024–heden', wat: 'Beroepsopleiding Advocaten' }
-  // Leeg laten tot ingevuld; een lege lijst wordt niet getoond.
-  cv: [] as { periode: string; wat: string }[],
+  // Ervaring en opleiding voor de publicatiepagina. Een lege lijst wordt niet getoond.
+  cv: [
+    { periode: '2021–heden', wat: 'Svalner Atlas, Amsterdam. Manager.' },
+    { periode: 'lopend', wat: 'Beroepsopleiding Advocaten (NOvA)' },
+    { periode: 'afgerond', wat: 'Beroepsopleiding Belastingadviseurs (NOB)' },
+  ] as { periode: string; wat: string }[],
   disclaimer:
     'Deze site bevat geen advies en staat los van het kantoor waar ik werk. Wat hier staat, schrijf ik op persoonlijke titel.',
 };
