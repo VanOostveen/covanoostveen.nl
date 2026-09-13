@@ -1,4 +1,4 @@
-/* Thema "Donker en groen": één letter (Instrument Sans), donker als standaard,
+/* Thema "Donker en groen": één letter (Source Serif 4), donker als standaard,
    groen accent als onderstreping, in de alineanummers en de lijn boven de
    verantwoording. Grijs via transparantie, zodat donker en licht dezelfde regels
    delen. Zie kennis/03-stijl-en-ontwerp.md. */
@@ -8,7 +8,7 @@
   --papier: #10201a;
   --inkt: #e4ebe5;
   --lijn: rgba(160, 190, 170, 0.28);
-  --sans: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --sans: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   color-scheme: dark;
 }
 
@@ -22,8 +22,8 @@
 
 html {
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.65;
   color: var(--inkt);
   background: var(--papier);
   -webkit-text-size-adjust: 100%;
