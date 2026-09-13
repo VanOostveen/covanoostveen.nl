@@ -1,0 +1,29 @@
+---
+import { pad, iso, type Stuk } from '../lib/stukken';
+
+interface Props {
+  stukken: Stuk[];
+  metType?: boolean;
+}
+
+const { stukken, metType = true } = Astro.props;
+---
+
+{
+  stukken.length === 0 ? (
+    <p class="leeg">Nog niets.</p>
+  ) : (
+    <ol class="lijst">
+      {stukken.map((s) => (
+        <li>
+          <time class="mono" datetime={iso(s.data.datum)}>{iso(s.data.datum)}</time>
+          {metType && <span class="mono type">{s.data.type}</span>}
+          <a href={pad(s)}>
+            {s.data.titel}
+            {s.data.concept && <span class="concept"> (concept)</span>}
+          </a>
+        </li>
+      ))}
+    </ol>
+  )
+}

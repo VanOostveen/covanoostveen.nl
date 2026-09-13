@@ -1,0 +1,73 @@
+---
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '../styles/global.css';
+import { profiel, secties } from '../data/profiel';
+
+interface Props {
+  titel?: string;
+  beschrijving: string;
+  canonical?: string;
+  taal?: 'nl' | 'en';
+  jsonld?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { titel, beschrijving, canonical, taal = 'nl', jsonld } = Astro.props;
+const paginaTitel = titel ? `${titel} · ${profiel.naam}` : profiel.naam;
+const huidig = Astro.url.pathname;
+const canoniek = canonical ?? new URL(huidig, Astro.site).href;
+const isHuidig = (p: string) => (huidig === '/' ? p === '/' : huidig.startsWith(p) && p !== '/');
+---
+
+<!doctype html>
+<html lang={taal}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{paginaTitel}</title>
+    <meta name="description" content={beschrijving} />
+    <meta name="author" content={profiel.naam} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canoniek} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${profiel.naam}: alles`} href="/feed.xml" />
+    {
+      Object.entries(secties)
+        .filter(([s]) => s !== 'publicaties')
+        .map(([s, { titel }]) => (
+          <link rel="alternate" type="application/rss+xml" title={`${profiel.naam}: ${titel.toLowerCase()}`} href={`/${s}/feed.xml`} />
+        ))
+    }
+    {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  </head>
+  <body>
+    <div class="pagina">
+      <header class="kop">
+        <a class="naam" href="/">{profiel.naam}</a>
+        <nav aria-label="Secties">
+          {
+            Object.entries(secties).map(([s, { titel }]) => (
+              <a href={`/${s}/`} aria-current={isHuidig(`/${s}/`) ? 'page' : undefined}>
+                {titel}
+              </a>
+            ))
+          }
+          <a href="/over/" aria-current={isHuidig('/over/') ? 'page' : undefined}>Over</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="voet">
+        <p>{profiel.naam}. {profiel.functie}</p>
+        <p>{profiel.disclaimer}</p>
+        <p>
+          <a href="/feed.xml">RSS</a> · Geen cookies, geen statistieken.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

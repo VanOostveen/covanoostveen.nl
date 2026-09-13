@@ -1,0 +1,42 @@
+---
+import Basis from '../../layouts/Basis.astro';
+import Lijst from '../../components/Lijst.astro';
+import { profiel, secties } from '../../data/profiel';
+import { getStukken } from '../../lib/stukken';
+
+export function getStaticPaths() {
+  return Object.keys(secties).map((sectie) => ({ params: { sectie } }));
+}
+
+const { sectie } = Astro.params;
+const info = secties[sectie];
+const stukken = await getStukken(info.type);
+---
+
+<Basis titel={info.titel} beschrijving={info.intro}>
+  <h1>{info.titel}</h1>
+  <p class="sectie-intro">{info.intro}</p>
+  <Lijst stukken={stukken} metType={false} />
+  {
+    sectie === 'publicaties' && profiel.cv.length > 0 && (
+      <>
+        <h2>Opleiding</h2>
+        <ul class="cv">
+          {profiel.cv.map((c) => (
+            <li>
+              <span class="mono">{c.periode}</span>
+              <span>{c.wat}</span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+  {
+    sectie !== 'publicaties' && (
+      <p class="voet-feed mono" style="margin-top:1.5rem">
+        <a href={`/${sectie}/feed.xml`}>RSS voor {info.titel.toLowerCase()}</a>
+      </p>
+    )
+  }
+</Basis>

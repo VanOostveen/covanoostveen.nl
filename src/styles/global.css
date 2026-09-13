@@ -1,0 +1,361 @@
+/* Thema "Dossier": IBM Plex Sans voor tekst, Plex Mono voor nummers, ECLI's,
+   datums en labels. Eén accentkleur (oxiderood) voor links en alineanummers.
+   Geen dark mode, geen JavaScript. Zie kennis/03-stijl-en-ontwerp.md. */
+
+:root {
+  --inkt: #1a1a1a;
+  --papier: #ffffff;
+  --accent: #d85a30;
+  --grijs: #6b6b6b;
+  --lijn: #d6d6d6;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --breedte: 38rem;
+}
+
+html {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--inkt);
+  background: var(--papier);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0 1.25rem;
+  background: var(--papier);
+}
+
+.pagina {
+  max-width: var(--breedte);
+  margin: 0 auto;
+  padding-block: 2.25rem 4rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+}
+
+/* Kop */
+
+.kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--lijn);
+  margin-bottom: 2.5rem;
+}
+
+.kop .naam {
+  font-weight: 500;
+  color: var(--inkt);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.kop nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+}
+
+.kop nav a {
+  color: var(--grijs);
+  text-decoration: none;
+}
+
+.kop nav a:hover,
+.kop nav a[aria-current='page'] {
+  color: var(--inkt);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* Homepage */
+
+.intro {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+}
+
+.bewijs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+
+/* Lijst van stukken */
+
+.lijst {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lijst li {
+  display: grid;
+  grid-template-columns: 6.25rem 5.5rem 1fr;
+  column-gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--lijn);
+}
+
+.lijst time {
+  color: var(--grijs);
+}
+
+.lijst .type {
+  color: var(--accent);
+}
+
+.lijst a {
+  color: var(--inkt);
+  text-decoration: none;
+}
+
+.lijst a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.lijst .concept {
+  color: var(--grijs);
+  font-style: italic;
+}
+
+@media (max-width: 40rem) {
+  .lijst li {
+    grid-template-columns: 6.25rem 1fr;
+  }
+  .lijst li a {
+    grid-column: 1 / -1;
+  }
+}
+
+.leeg {
+  color: var(--grijs);
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 1.25rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 2.5rem 0 0.75rem;
+}
+
+.sectie-intro {
+  color: var(--grijs);
+  margin: -0.5rem 0 2rem;
+}
+
+/* Stuk */
+
+.stuk header {
+  margin-bottom: 2rem;
+}
+
+.stuk .meta {
+  margin: 0 0 0.75rem;
+  color: var(--grijs);
+}
+
+.stuk .meta .type {
+  color: var(--accent);
+}
+
+.stuk .ecli {
+  margin: -0.5rem 0 0;
+  color: var(--grijs);
+}
+
+.stuk .ecli a {
+  color: var(--grijs);
+}
+
+.stuk .extern {
+  margin: 0 0 0.75rem;
+}
+
+.prose {
+  max-width: 36rem;
+}
+
+.prose.breed {
+  max-width: var(--breedte);
+}
+
+.prose p {
+  position: relative;
+  margin: 0 0 1.1rem;
+}
+
+.prose h2,
+.prose h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+
+.prose blockquote {
+  margin: 0 0 1.1rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--lijn);
+  color: var(--grijs);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+  margin: 0 0 1.1rem;
+}
+
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.4rem 0.75rem 0.4rem 0;
+  border-bottom: 1px solid var(--lijn);
+}
+
+.prose th {
+  font-weight: 600;
+}
+
+.prose img,
+.prose svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--lijn);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Alineanummers: alleen zichtbaar bij .genummerd, in de marge op brede schermen. */
+
+.prose .al {
+  display: none;
+}
+
+.prose.genummerd .al {
+  display: block;
+  position: absolute;
+  left: -3.25rem;
+  top: 0.2em;
+  width: 2.5rem;
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.prose.genummerd .al:hover {
+  text-decoration: underline;
+}
+
+.prose p:target {
+  background: #fff5f1;
+  outline: 0.4rem solid #fff5f1;
+}
+
+@media (max-width: 48rem) {
+  .prose.genummerd .al {
+    position: static;
+    display: inline;
+    width: auto;
+    margin-right: 0.6rem;
+  }
+}
+
+/* Verantwoording en voet */
+
+.verantwoording {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lijn);
+  font-size: 0.9rem;
+  color: var(--grijs);
+}
+
+.verantwoording p {
+  margin: 0 0 0.5rem;
+}
+
+.voet {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lijn);
+  font-size: 0.85rem;
+  color: var(--grijs);
+}
+
+.voet p {
+  margin: 0 0 0.4rem;
+}
+
+.voet a {
+  color: var(--grijs);
+}
+
+.cv {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cv li {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  column-gap: 0.75rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--lijn);
+}
+
+.cv .mono {
+  color: var(--grijs);
+}

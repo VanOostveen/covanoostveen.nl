@@ -1,0 +1,77 @@
+---
+import { render } from 'astro:content';
+import Basis from '../../layouts/Basis.astro';
+import { profiel, sectieVanType } from '../../data/profiel';
+import { getStukken, iso, isGenummerd, type Stuk } from '../../lib/stukken';
+
+export async function getStaticPaths() {
+  const stukken = await getStukken();
+  return stukken.map((stuk) => ({
+    params: { sectie: sectieVanType[stuk.data.type], slug: stuk.id },
+    props: { stuk },
+  }));
+}
+
+const { stuk } = Astro.props as { stuk: Stuk };
+const d = stuk.data;
+const { Content } = await render(stuk);
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const genummerd = isGenummerd(stuk);
+const volledigeTekstLater = d.extern?.volledigeTekstVanaf && d.extern.volledigeTekstVanaf > new Date();
+
+const jsonld: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.titel,
+  description: d.samenvatting,
+  datePublished: iso(d.datum),
+  inLanguage: d.taal,
+  mainEntityOfPage: d.canonical ?? url,
+  author: { '@type': 'Person', name: profiel.naam, jobTitle: profiel.functieKort, url: `${profiel.site}/over/` },
+  isPartOf: { '@type': 'WebSite', name: profiel.naam, url: profiel.site },
+};
+if (d.ecli) jsonld.citation = d.ecli;
+if (d.extern?.url) jsonld.sameAs = d.extern.url;
+---
+
+<Basis titel={d.titel} beschrijving={d.samenvatting} canonical={d.canonical} taal={d.taal} jsonld={jsonld}>
+  <article class="stuk">
+    <header>
+      <p class="meta mono">
+        <span class="type">{d.type}</span> · <time datetime={iso(d.datum)}>{iso(d.datum)}</time>
+        {d.concept && <span> · concept</span>}
+      </p>
+      <h1>{d.titel}</h1>
+      {
+        d.ecli && (
+          <p class="ecli mono">
+            <a href={`https://uitspraken.rechtspraak.nl/details?id=${encodeURIComponent(d.ecli)}`}>{d.ecli}</a>
+            {d.instantie && <span> · {d.instantie}</span>}
+            {d.uitspraakdatum && <span> · {iso(d.uitspraakdatum)}</span>}
+          </p>
+        )
+      }
+      {
+        d.extern && (
+          <p class="extern">
+            Verschenen in {d.extern.url ? <a href={d.extern.url}>{d.extern.bron}</a> : d.extern.bron}.
+            {volledigeTekstLater && <span> Hier staat de samenvatting; de volledige tekst volgt vanaf {iso(d.extern.volledigeTekstVanaf!)}.</span>}
+          </p>
+        )
+      }
+    </header>
+    <div class:list={['prose', { genummerd, breed: !genummerd }]}>
+      <Content />
+    </div>
+    <footer class="verantwoording">
+      <p>{profiel.naam}, {profiel.functieKort.toLowerCase()}. {d.type === 'noot' ? 'Een persoonlijke noot, geen advies.' : 'Op persoonlijke titel, geen advies.'}</p>
+      {
+        genummerd && (
+          <p>
+            Citeren: {profiel.naam}, "{d.titel}", covanoostveen.nl, {iso(d.datum)}, alinea n. Elk alineanummer is een link.
+          </p>
+        )
+      }
+    </footer>
+  </article>
+</Basis>

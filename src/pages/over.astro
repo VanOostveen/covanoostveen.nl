@@ -1,0 +1,55 @@
+---
+import Basis from '../layouts/Basis.astro';
+import { profiel } from '../data/profiel';
+
+const sameAs = [profiel.links.linkedin, profiel.links.github].filter(Boolean);
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profiel.naam,
+  jobTitle: profiel.functieKort,
+  description: profiel.functie,
+  url: `${profiel.site}/over/`,
+  ...(sameAs.length ? { sameAs } : {}),
+  affiliation: { '@type': 'Organization', name: 'Stichting The Floris', url: 'https://www.thefloris.nl' },
+};
+---
+
+<Basis titel="Over" beschrijving={`Over ${profiel.naam}. ${profiel.functie}`} jsonld={jsonld}>
+  <h1>Over</h1>
+  <div class="prose">
+    <p>{profiel.functie}</p>
+    <p>
+      Ik ben fiscaal advocaat in Amsterdam en bouw daarnaast de gereedschappen die ik in de praktijk mis: zoeksystemen
+      voor rechtspraak, MCP-servers, en werkstromen die het vak sneller en controleerbaarder maken. Ik zit in het
+      bestuur van <a href="https://www.thefloris.nl">Stichting The Floris</a>, met ledenmanagement en AI in
+      portefeuille.
+    </p>
+    <p>
+      Op deze site staan <a href="/noten/">noten</a> over rechtspraak die ik toch al bijhoud, <a href="/essays/">essays</a>
+      met een standpunt, en een <a href="/werk/">bouwlogboek</a>. Wat elders is verschenen staat bij
+      <a href="/publicaties/">publicaties</a>.
+    </p>
+    <p>{profiel.disclaimer}</p>
+  </div>
+
+  <h2>Contact</h2>
+  <div class="prose">
+    <p>
+      {profiel.links.linkedin && <><a href={profiel.links.linkedin}>LinkedIn</a> · </>}
+      {profiel.links.github && <><a href={profiel.links.github}>GitHub</a> · </>}
+      {profiel.links.email && <><a href={`mailto:${profiel.links.email}`}>{profiel.links.email}</a> · </>}
+      <a href="/feed.xml">RSS</a>
+    </p>
+  </div>
+
+  <h2>Colofon</h2>
+  <div class="prose">
+    <p>
+      Statische site uit markdown, gebouwd met Astro en gehost op GitHub Pages. Letters: IBM Plex Sans en IBM Plex
+      Mono, zelf gehost. Geen cookies, geen statistieken, geen JavaScript. Elke alinea van een noot heeft een eigen
+      nummer en adres, zodat je er precies naar kunt verwijzen.
+    </p>
+  </div>
+</Basis>
