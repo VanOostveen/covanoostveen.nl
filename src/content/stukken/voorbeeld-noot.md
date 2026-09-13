@@ -17,7 +17,7 @@ De derde alinea zegt wat er nieuw aan is ten opzichte van de lijn: welke eerdere
 
 | Element | Waar het staat |
 | --- | --- |
-| ECLI | Boven de titel, in mono |
+| ECLI | Onder de titel, in dezelfde letter |
 | Alineanummer | In de marge, klikbaar, met een vast anker |
 | Verantwoording | Onder het stuk, in kleinere letter |
 
