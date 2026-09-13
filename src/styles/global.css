@@ -1,33 +1,28 @@
-/* Thema "Lucht, tint": één letter (Instrument Sans), licht getint wit, oxiderood
-   alleen als onderstreping onder links, grijs via transparantie zodat licht en
-   nacht dezelfde regels delen. Zie kennis/03-stijl-en-ontwerp.md. */
+/* Thema "Donker en groen": één letter (Instrument Sans), donker als standaard,
+   groen accent als onderstreping, in de alineanummers en de lijn boven de
+   verantwoording. Grijs via transparantie, zodat donker en licht dezelfde regels
+   delen. Zie kennis/03-stijl-en-ontwerp.md. */
 
 :root {
-  --accent: #d85a30;
-  --papier: #fdf8f7;
-  --inkt: #121212;
-  --lijn: rgba(128, 128, 128, 0.35);
+  --accent: #6fb08c;
+  --papier: #10201a;
+  --inkt: #e4ebe5;
+  --lijn: rgba(160, 190, 170, 0.28);
   --sans: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --papier: #221915;
-    --inkt: #e6e4df;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme='dark'] {
-  --papier: #221915;
-  --inkt: #e6e4df;
   color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --accent: #2e6b52;
+  --papier: #f3f7f4;
+  --inkt: #121a15;
+  --lijn: rgba(60, 100, 80, 0.3);
+  color-scheme: light;
 }
 
 html {
   font-family: var(--sans);
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
   color: var(--inkt);
   background: var(--papier);
@@ -59,7 +54,7 @@ a:hover {
 }
 
 .stil {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 /* Kop */
@@ -111,25 +106,16 @@ a:hover {
   opacity: 1;
 }
 
-.knop .zon {
+.knop .maan {
   display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .knop .zon {
-    display: block;
-  }
-  :root:not([data-theme='light']) .knop .maan {
-    display: none;
-  }
+:root[data-theme='light'] .knop .zon {
+  display: none;
 }
 
-:root[data-theme='dark'] .knop .zon {
+:root[data-theme='light'] .knop .maan {
   display: block;
-}
-
-:root[data-theme='dark'] .knop .maan {
-  display: none;
 }
 
 /* Homepage en lijsten */
@@ -154,7 +140,7 @@ h1 {
 
 .sectie-intro {
   margin: 0 0 72px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 h2 {
@@ -181,7 +167,7 @@ h2 {
 
 .lijst .datum {
   font-size: 15px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .lijst .type {
@@ -189,7 +175,7 @@ h2 {
   width: max-content;
   margin-top: 2px;
   font-size: 15px;
-  opacity: 0.5;
+  opacity: 0.55;
   text-decoration: none;
 }
 
@@ -206,7 +192,7 @@ h2 {
 }
 
 .lijst .concept {
-  opacity: 0.5;
+  opacity: 0.55;
   font-style: italic;
 }
 
@@ -218,7 +204,7 @@ h2 {
 }
 
 .leeg {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .cv {
@@ -238,7 +224,7 @@ h2 {
 
 .cv .periode {
   font-size: 15px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 /* Stuk */
@@ -249,7 +235,7 @@ h2 {
   flex-wrap: wrap;
   gap: 24px;
   font-size: 15px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .stuk .meta {
@@ -268,7 +254,7 @@ h2 {
 .stuk .extern {
   margin: 0 0 72px;
   font-size: 15px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .stuk header h1 + .extern {
@@ -353,7 +339,8 @@ h2 {
   text-align: right;
   font-size: 14px;
   text-decoration: none;
-  opacity: 0.4;
+  color: var(--accent);
+  opacity: 0.85;
 }
 
 .prose.genummerd .al:hover {
@@ -379,21 +366,21 @@ h2 {
 .verantwoording {
   margin-top: 80px;
   padding-top: 24px;
-  border-top: 1.5px solid currentColor;
+  border-top: 1.5px solid var(--accent);
   font-size: 15px;
   line-height: 1.6;
 }
 
 .verantwoording p {
   margin: 0 0 8px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .voet {
   margin-top: 176px;
   font-size: 13.5px;
   line-height: 1.6;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 
 .voet p {

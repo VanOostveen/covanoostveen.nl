@@ -1,7 +1,7 @@
 ---
 titel: Een MCP-server voor rechtspraak.nl
 datum: 2026-09-13
-type: werk
+type: toepassing
 samenvatting: Een server die uitspraken, rechtsoverwegingen en de keten van conclusie tot cassatie direct in een taalmodel beschikbaar maakt.
 concept: true
 ---

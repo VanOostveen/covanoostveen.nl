@@ -1,6 +1,6 @@
 # covanoostveen.nl
 
-Persoonlijke site: noten over rechtspraak, essays, bouwlogboek en publicatielijst. Statisch, uit markdown, zonder cookies of statistieken; het enige script is de licht/nacht-knop.
+Persoonlijke site: noten over rechtspraak, essays, toepassingen en publicatielijst. Statisch, uit markdown, zonder cookies of statistieken; het enige script is de licht/nacht-knop.
 
 ## Lokaal
 
@@ -19,7 +19,7 @@ Maak een bestand in `src/content/stukken/`. De bestandsnaam wordt de URL (`hr-10
 ---
 titel: Hoge Raad verlaat de lijn van 2019 bij art. 10a
 datum: 2026-09-20
-type: noot            # noot | essay | werk | publicatie
+type: noot            # noot | essay | toepassing | publicatie
 samenvatting: Eén zin voor lijsten, zoekmachines en RSS.
 ecli: ECLI:NL:HR:2026:1234
 instantie: Hoge Raad
@@ -45,7 +45,7 @@ Staan op één plek: `src/data/profiel.ts`. Vul daar LinkedIn, e-mail en de ople
 
 ## Wat de build maakt
 
-- `/feed.xml` en per sectie `/noten/feed.xml`, `/essays/feed.xml`, `/werk/feed.xml`, `/publicaties/feed.xml`
+- `/feed.xml` en per sectie `/noten/feed.xml`, `/essays/feed.xml`, `/toepassingen/feed.xml`, `/publicaties/feed.xml`
 - `/sitemap-index.xml`
 - JSON-LD (Article, Person, WebSite) en een canonical-link op elke pagina
 - Alineanummers met ankers (`#al-3`) op elke noot

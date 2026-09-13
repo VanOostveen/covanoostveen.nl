@@ -1,7 +1,7 @@
 ---
 titel: "[Naam van het project of de notitie]"
 datum: JJJJ-MM-DD
-type: werk
+type: toepassing
 samenvatting: "[Wat het is en wat het doet, in één zin.]"
 concept: true
 ---

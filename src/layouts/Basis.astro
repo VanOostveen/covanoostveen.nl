@@ -28,6 +28,7 @@ const isHuidig = (p: string) => huidig.startsWith(p);
     <title>{paginaTitel}</title>
     <meta name="description" content={beschrijving} />
     <meta name="author" content={profiel.naam} />
+    <meta name="theme-color" content="#10201a" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={canoniek} />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -41,10 +42,9 @@ const isHuidig = (p: string) => huidig.startsWith(p);
     }
     {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
     <script is:inline>
-      // Onthoudt de keuze voor licht of nacht. Zonder keuze volgt de site het systeem.
+      // Donker is de standaard. Wie voor licht kiest, wordt onthouden in localStorage.
       try {
-        var t = localStorage.getItem('thema');
-        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        if (localStorage.getItem('thema') === 'light') document.documentElement.dataset.theme = 'light';
       } catch (e) {}
     </script>
   </head>
@@ -55,7 +55,7 @@ const isHuidig = (p: string) => huidig.startsWith(p);
         <nav aria-label="Menu">
           <a href="/publicaties/" aria-current={isHuidig('/publicaties/') ? 'page' : undefined}>Publicaties</a>
           <a href="/over/" aria-current={isHuidig('/over/') ? 'page' : undefined}>Over</a>
-          <button class="knop" type="button" id="thema" aria-label="Wissel tussen licht en nacht">
+          <button class="knop" type="button" id="thema" aria-label="Wissel tussen donker en licht">
             <svg class="zon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"></path></svg>
             <svg class="maan" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
           </button>
@@ -65,17 +65,16 @@ const isHuidig = (p: string) => huidig.startsWith(p);
         <slot />
       </main>
       <footer class="voet">
-        <p>{profiel.naam}. {profiel.functie}</p>
-        <p>{profiel.disclaimer}</p>
+        {profiel.voetRegels.map((regel) => <p>{regel}</p>)}
         <p><a href="/feed.xml">RSS</a></p>
       </footer>
     </div>
     <script is:inline>
       document.getElementById('thema').addEventListener('click', function () {
         var d = document.documentElement.dataset;
-        var nu = d.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        var nieuw = nu === 'dark' ? 'light' : 'dark';
-        d.theme = nieuw;
+        var nieuw = d.theme === 'light' ? 'dark' : 'light';
+        if (nieuw === 'light') d.theme = 'light';
+        else delete d.theme;
         try { localStorage.setItem('thema', nieuw); } catch (e) {}
       });
     </script>

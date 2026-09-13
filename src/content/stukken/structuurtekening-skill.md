@@ -1,7 +1,7 @@
 ---
 titel: Structuurtekeningen uit tekst
 datum: 2026-09-13
-type: werk
+type: toepassing
 samenvatting: Een skill die uit een beschrijving van een concernstructuur een tekening maakt, in dezelfde letter en inkt als deze site.
 concept: true
 ---

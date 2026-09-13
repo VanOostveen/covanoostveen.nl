@@ -25,7 +25,14 @@ const jsonld = [
 ];
 ---
 
-<Basis beschrijving={`${profiel.naam}. ${profiel.functie}`} jsonld={jsonld}>
-  <p class="intro">{profiel.functie}</p>
+<Basis beschrijving={profiel.functieZin} jsonld={jsonld}>
+  <p class="intro">
+    {profiel.functieRegels.map((regel, i) => (
+      <>
+        {i > 0 && <br />}
+        {regel}
+      </>
+    ))}
+  </p>
   <Lijst stukken={stukken} />
 </Basis>

@@ -7,7 +7,7 @@ export async function GET(context: APIContext) {
   const stukken = await getStukken();
   return rss({
     title: profiel.naam,
-    description: profiel.functie,
+    description: profiel.functieZin,
     site: context.site!,
     customData: '<language>nl</language>',
     items: stukken.map((s) => ({

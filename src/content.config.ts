@@ -7,7 +7,7 @@ const stukken = defineCollection({
   schema: z.object({
     titel: z.string(),
     datum: z.coerce.date(),
-    type: z.enum(['noot', 'essay', 'werk', 'publicatie']),
+    type: z.enum(['noot', 'essay', 'toepassing', 'publicatie']),
     samenvatting: z.string(),
     ecli: z.string().optional(),
     instantie: z.string().optional(),

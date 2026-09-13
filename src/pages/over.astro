@@ -9,17 +9,16 @@ const jsonld = {
   '@type': 'Person',
   name: profiel.naam,
   jobTitle: profiel.functieKort,
-  description: profiel.functie,
+  description: profiel.functieZin,
   url: `${profiel.site}/over/`,
   ...(sameAs.length ? { sameAs } : {}),
   affiliation: { '@type': 'Organization', name: 'Stichting The Floris', url: 'https://www.thefloris.nl' },
 };
 ---
 
-<Basis titel="Over" beschrijving={`Over ${profiel.naam}. ${profiel.functie}`} jsonld={jsonld}>
+<Basis titel="Over" beschrijving={profiel.functieZin} jsonld={jsonld}>
   <h1>Over</h1>
   <div class="prose">
-    <p>{profiel.functie}</p>
     <p>
       Ik ben fiscaal advocaat in Amsterdam en bouw daarnaast de gereedschappen die ik in de praktijk mis: zoeksystemen
       voor rechtspraak, MCP-servers, en werkstromen die het vak sneller en controleerbaarder maken. Ik zit in het
@@ -28,7 +27,7 @@ const jsonld = {
     </p>
     <p>
       Op deze site staan <a href="/noten/">noten</a> over rechtspraak die ik toch al bijhoud, <a href="/essays/">essays</a>
-      met een standpunt, en een <a href="/werk/">bouwlogboek</a>. Wat elders is verschenen staat bij
+      met een standpunt, en een <a href="/toepassingen/">toepassingen</a>. Wat elders is verschenen staat bij
       <a href="/publicaties/">publicaties</a>.
     </p>
     <p>{profiel.disclaimer}</p>

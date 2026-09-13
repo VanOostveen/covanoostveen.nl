@@ -4,7 +4,10 @@
 export const profiel = {
   naam: 'Co van Oostveen',
   merk: 'CvO',
-  functie: 'Fiscaal advocaat in Amsterdam. Ontwikkelt AI-toepassingen voor de fiscale praktijk.',
+  // Openingszin op de homepage: elke regel apart, zonder punt.
+  functieRegels: ['Fiscaal advocaat in Amsterdam', 'Ontwikkelt AI-toepassingen voor de fiscale praktijk'],
+  // Eén lopende zin voor metateksten, feeds en JSON-LD.
+  functieZin: 'Co van Oostveen, fiscaal advocaat in Amsterdam, ontwikkelt AI-toepassingen voor de fiscale praktijk',
   functieKort: 'Fiscaal advocaat',
   site: 'https://covanoostveen.nl',
   // Vul in wat je publiek wilt maken. Lege velden worden niet getoond.
@@ -19,11 +22,13 @@ export const profiel = {
     { periode: 'lopend', wat: 'Beroepsopleiding Advocaten (NOvA)' },
     { periode: 'afgerond', wat: 'Beroepsopleiding Belastingadviseurs (NOB)' },
   ] as { periode: string; wat: string }[],
-  disclaimer:
-    'Deze site bevat geen advies en staat los van het kantoor waar ik werk. Wat hier staat, schrijf ik op persoonlijke titel.',
+  voetRegels: [
+    'Co van Oostveen, fiscaal advocaat in Amsterdam',
+    'Deze site bevat geen advies en staat los van het kantoor waar ik werk; wat hier staat, schrijf ik op persoonlijke titel',
+  ],
 };
 
-export type Type = 'noot' | 'essay' | 'werk' | 'publicatie';
+export type Type = 'noot' | 'essay' | 'toepassing' | 'publicatie';
 
 export const secties: Record<string, { type: Type; titel: string; intro: string }> = {
   noten: {
@@ -37,11 +42,11 @@ export const secties: Record<string, { type: Type; titel: string; intro: string 
     titel: 'Essays',
     intro: 'Langere stukken die een positie innemen. Meestal groeien ze uit een reeks noten.',
   },
-  werk: {
-    type: 'werk',
-    titel: 'Werk',
+  toepassingen: {
+    type: 'toepassing',
+    titel: 'Toepassingen',
     intro:
-      'Bouwlogboek: wat ik maak voor de fiscale praktijk, wat werkt en wat niet. Ook mislukte experimenten, met wat ik ervan leerde.',
+      'Wat ik maak voor de fiscale praktijk, wat werkt en wat niet. Ook mislukte experimenten, met wat ik ervan leerde.',
   },
   publicaties: {
     type: 'publicatie',
@@ -53,6 +58,6 @@ export const secties: Record<string, { type: Type; titel: string; intro: string 
 export const sectieVanType: Record<Type, string> = {
   noot: 'noten',
   essay: 'essays',
-  werk: 'werk',
+  toepassing: 'toepassingen',
   publicatie: 'publicaties',
 };
